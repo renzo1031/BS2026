@@ -1,0 +1,62 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/timing.properties
+
+# Spring Boot
+application-local.yml
+application-local.yaml
+
+# Node / Vue / Vite
+node_modules/
+dist/
+dist-ssr/
+coverage/
+.vite/
+.vitest/
+*.tsbuildinfo
+
+# Package managers
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test / reports
+playwright-report/
+test-results/
+
+# Local temp
+tmp/
+temp/
+
+# porject specific
+.idea/
+.vscode/
+skills/
+rules/
+AGENTS.md
