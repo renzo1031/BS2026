@@ -1,8 +1,9 @@
-<h1 align="center">BS2026 信息系统项目合集</h1>
+<h1 align="center">BS2026 计算机毕业设计项目合集</h1>
 
 <p align="center">
-  基于 <strong>Spring Boot + Vue</strong> 的校园与社会服务信息系统项目合集<br>
+  基于 <strong>Spring Boot + Vue</strong> 的计算机毕业设计项目合集<br>
   项目按编号独立存放，提供源码、数据库脚本和项目文档；部分项目包含效果截图，适合课程设计、二次开发和技术学习参考。
+  联系QQ：1852568062
 </p>
 
 <p align="center">
