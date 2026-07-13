@@ -71,6 +71,7 @@ temp/
 # porject specific
 .idea/
 .vscode/
+.serena/
 skills/
 rules/
 AGENTS.md
