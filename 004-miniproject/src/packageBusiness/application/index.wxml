@@ -1,0 +1,43 @@
+<view class="page application-page">
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载申请表" message="活动可能已停止招募" bind:action="load" />
+  <block wx:elif="{{activity}}">
+    <view class="summary motion-enter">
+      <view class="summary-top">
+        <view class="grow"><text class="scene">{{activity.sceneName}}</text><text class="title">{{activity.title}}</text></view>
+        <text class="status {{activity.lifecycleStatus === 'RECRUITING' ? 'status--success' : 'status--warn'}}">{{activity.lifecycleStatus === 'RECRUITING' ? '可申请' : '不可申请'}}</text>
+      </view>
+      <view class="summary-meta"><text>{{activity.modeText}}</text><text>{{startAtText}}</text></view>
+      <view class="progress-card">
+        <view class="progress-copy"><text class="progress-value">{{activity.acceptedCount}}<text class="progress-total"> / {{activity.capacity}}</text></text><text class="progress-label">已加入，还剩 {{activity.remainingSeats}} 个名额</text></view>
+      </view>
+    </view>
+
+    <view class="apply-note motion-enter motion-delay-1">
+      <view class="note-heading"><text class="section-title">申请前确认</text><text class="note-mark">✓</text></view>
+      <view class="note-list">
+        <view class="note-row"><text class="note-label">报名截止</text><text class="note-value">{{deadlineText}}</text></view>
+        <view class="note-row"><text class="note-label">公开地点</text><text class="note-value">{{activity.publicLocation || '通过后沟通'}}</text></view>
+        <view class="note-row"><text class="note-label">信息范围</text><text class="note-value">补充说明只给发起人审核报名使用</text></view>
+      </view>
+    </view>
+
+    <view class="form-journey section">
+      <view class="surface form-section motion-enter motion-delay-2">
+        <text class="section-kicker">报名问题</text>
+        <text class="section-title">让发起人快速认识你</text>
+        <view wx:for="{{activity.joinQuestions}}" wx:key="*this" class="field question-card"><text class="field-label required">{{index + 1}}. {{item}}</text><textarea class="textarea answer" maxlength="300" value="{{answers[index]}}" data-index="{{index}}" bindinput="onAnswerInput" /></view>
+        <text wx:if="{{!activity.joinQuestions.length}}" class="caption no-question">发起人没有设置报名问题，可以直接写补充说明。</text>
+      </view>
+
+      <view class="surface form-section motion-enter motion-delay-3">
+        <text class="section-kicker">补充说明</text>
+        <text class="section-title">告诉发起人你想提前说明的事</text>
+        <text class="section-copy">可以写时间安排、相关经验或你想确认的边界。</text>
+        <view class="field last-field"><text class="field-label">给发起人的补充说明</text><textarea class="textarea" maxlength="500" value="{{message}}" placeholder="可选，例如你的相关经验或时间安排" bindinput="onMessageInput" /></view>
+      </view>
+
+      <text class="agreement motion-enter motion-delay-3">提交即表示你会遵守活动约定。发起人仅能看到本次申请所需信息。</text>
+      <button class="primary-button submit motion-enter motion-delay-4 motion-press" loading="{{submitting}}" disabled="{{submitting || activity.lifecycleStatus !== 'RECRUITING'}}" bindtap="submit">提交申请</button>
+    </view>
+  </block>
+</view>

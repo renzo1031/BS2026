@@ -1,0 +1,260 @@
+page {
+  background: #f3f6f4;
+}
+
+.my-activities-page {
+  padding-top: 22rpx;
+}
+
+.records-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18rpx;
+  padding: 0 4rpx 22rpx;
+}
+
+.records-eyebrow {
+  display: block;
+  color: #147d64;
+  font-size: 20rpx;
+  font-weight: 800;
+  letter-spacing: 2rpx;
+}
+
+.records-title {
+  display: block;
+  margin-top: 5rpx;
+  color: #182b23;
+  font-size: 38rpx;
+  font-weight: 820;
+  line-height: 1.2;
+}
+
+.records-subtitle {
+  display: block;
+  margin-top: 7rpx;
+  color: #74827b;
+  font-size: 23rpx;
+}
+
+.records-total {
+  display: flex;
+  align-items: baseline;
+  gap: 5rpx;
+  flex: none;
+  color: #147d64;
+}
+
+.total-value {
+  font-size: 42rpx;
+  font-weight: 820;
+  line-height: 1;
+}
+
+.total-label {
+  color: #739086;
+  font-size: 21rpx;
+}
+
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rpx;
+  overflow: hidden;
+  border: 1rpx solid #dde9e3;
+  border-radius: 16rpx;
+  background: #dde9e3;
+}
+
+.stat-cell {
+  min-width: 0;
+  padding: 16rpx 8rpx;
+  background: #ffffff;
+  text-align: center;
+}
+
+.stat-value,
+.stat-label {
+  display: block;
+}
+
+.stat-value {
+  color: #1b705a;
+  font-size: 29rpx;
+  font-weight: 780;
+}
+
+.stat-label {
+  margin-top: 4rpx;
+  color: #7c8b84;
+  font-size: 20rpx;
+}
+
+.segment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rpx;
+  margin: 22rpx 0 22rpx;
+  padding: 5rpx;
+  border: 1rpx solid #dce8e2;
+  border-radius: 18rpx;
+  background: #e7efeb;
+}
+
+.segment-item {
+  min-height: 66rpx;
+  margin: 0;
+  border-radius: 18rpx;
+  background: transparent;
+  color: #6b7d74;
+  font-size: 24rpx;
+  line-height: 66rpx;
+}
+
+.segment-item--active {
+  background: #ffffff;
+  color: #12684f;
+  font-weight: 700;
+  box-shadow: 0 4rpx 12rpx rgba(34, 74, 58, .08);
+}
+
+.list-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14rpx;
+  padding: 0 4rpx 12rpx;
+}
+
+.list-heading .section-title {
+  margin-bottom: 0;
+  color: #21352c;
+  font-size: 29rpx;
+}
+
+.list-count {
+  color: #87948e;
+  font-size: 21rpx;
+}
+
+.list-stack {
+  display: grid;
+  gap: 12rpx;
+}
+
+.record-card {
+  padding: 20rpx 22rpx;
+  border: 1rpx solid #e0e9e5;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 20rpx rgba(34, 63, 52, .035);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.record-main {
+  min-width: 0;
+}
+
+.record-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+
+.item-title {
+  display: -webkit-box;
+  min-width: 0;
+  overflow: hidden;
+  color: #253b31;
+  font-size: 29rpx;
+  font-weight: 720;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.record-scene,
+.record-time {
+  display: block;
+  margin-top: 7rpx;
+  color: #76857d;
+  font-size: 22rpx;
+}
+
+.record-scene {
+  color: #147d64;
+  font-weight: 650;
+}
+
+.record-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx 24rpx;
+  margin-top: 16rpx;
+  padding-top: 14rpx;
+  border-top: 1rpx solid #edf2ef;
+}
+
+.meta-pair {
+  display: flex;
+  align-items: baseline;
+  gap: 6rpx;
+}
+
+.meta-label {
+  color: #8a9790;
+  font-size: 21rpx;
+}
+
+.meta-value {
+  color: #4f6459;
+  font-size: 22rpx;
+  font-weight: 650;
+}
+
+.item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8rpx;
+  margin-top: 14rpx;
+}
+
+.item-actions button {
+  margin: 0;
+}
+
+.reason {
+  display: block;
+  margin-top: 14rpx;
+  padding: 12rpx 14rpx;
+  border-radius: 14rpx;
+  background: #fff7e6;
+  color: #806331;
+  font-size: 23rpx;
+  line-height: 1.5;
+}
+
+.withdraw {
+  display: block;
+  margin: 14rpx 0 0 auto;
+  color: #9d342d;
+  background: #fff2f0;
+}
+
+@media (max-width: 420px) {
+  .records-title {
+    font-size: 35rpx;
+  }
+
+  .stats-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .record-card {
+    transition: none;
+  }
+}

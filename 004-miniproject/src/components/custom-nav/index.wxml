@@ -1,0 +1,8 @@
+<view
+  class="custom-nav"
+  style="height: {{totalHeight}}px; padding-top: {{statusBarHeight}}px; padding-right: {{rightInset}}px;"
+  role="banner"
+  aria-label="{{title}}"
+>
+  <text class="nav-title">{{title}}</text>
+</view>

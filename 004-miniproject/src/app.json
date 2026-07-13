@@ -1,0 +1,74 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/campus-bind/index",
+    "pages/discover/index",
+    "pages/activity-detail/index",
+    "pages/messages/index",
+    "pages/profile/index"
+  ],
+  "subpackages": [
+    {
+      "root": "packageBusiness",
+      "name": "business",
+      "pages": [
+        "activity-editor/index",
+        "my-activities/index",
+        "application/index",
+        "application-manage/index",
+        "workspace/index"
+      ]
+    },
+    {
+      "root": "packageAccount",
+      "name": "account",
+      "pages": [
+        "profile-edit/index",
+        "favorites-reputation/index",
+        "security-privacy/index",
+        "safety/index"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "校园搭子",
+    "backgroundColor": "#f4f7f5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#67736d",
+    "selectedColor": "#147d64",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/discover/index",
+        "text": "广场",
+        "iconPath": "assets/icons/tab-discover.png",
+        "selectedIconPath": "assets/icons/tab-discover-active.png"
+      },
+      {
+        "pagePath": "pages/messages/index",
+        "text": "消息",
+        "iconPath": "assets/icons/tab-messages.png",
+        "selectedIconPath": "assets/icons/tab-messages-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "assets/icons/tab-profile.png",
+        "selectedIconPath": "assets/icons/tab-profile-active.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 15000,
+    "uploadFile": 30000,
+    "connectSocket": 10000
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "../sitemap.json",
+  "__usePrivacyCheck__": false
+}

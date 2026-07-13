@@ -1,0 +1,67 @@
+<view class="page my-activities-page">
+  <view class="records-header motion-enter">
+    <view class="grow">
+      <text class="records-eyebrow">我的记录</text>
+      <text class="records-title">活动与申请</text>
+      <text class="records-subtitle">发布过的活动和报名进度都在这里</text>
+    </view>
+    <view class="records-total"><text class="total-value">{{stats ? stats.total : 0}}</text><text class="total-label">条记录</text></view>
+  </view>
+
+  <view wx:if="{{stats}}" class="stats-strip motion-enter motion-delay-1">
+    <view class="stat-cell"><text class="stat-value">{{stats.published}}</text><text class="stat-label">已发布</text></view>
+    <view class="stat-cell"><text class="stat-value">{{stats.draft}}</text><text class="stat-label">草稿</text></view>
+    <view class="stat-cell"><text class="stat-value">{{stats.recruiting}}</text><text class="stat-label">招募中</text></view>
+    <view class="stat-cell"><text class="stat-value">{{stats.pending}}</text><text class="stat-label">待处理</text></view>
+  </view>
+
+  <view class="segment motion-enter motion-delay-1">
+    <button class="segment-item {{tab === 'published' ? 'segment-item--active' : ''}} motion-press" data-tab="published" bindtap="switchTab">我发布的</button>
+    <button class="segment-item {{tab === 'applied' ? 'segment-item--active' : ''}} motion-press" data-tab="applied" bindtap="switchTab">我的申请</button>
+  </view>
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载业务记录" message="请下拉或点击重试" bind:action="load" />
+
+  <block wx:elif="{{tab === 'published'}}">
+    <view class="list-heading motion-enter motion-delay-2"><text class="section-title">我发布的活动</text><text class="list-count">{{activities.length}} 条</text></view>
+    <page-state wx:if="{{!activities.length}}" state="empty" title="还没有发布活动" message="从搭子广场发布你的第一个活动" />
+    <view wx:else class="list-stack motion-enter motion-delay-2">
+      <view wx:for="{{activities}}" wx:key="id" class="record-card">
+        <view class="record-main" data-id="{{item.id}}" bindtap="openActivity">
+          <view class="record-title-row">
+            <text class="item-title">{{item.title}}</text>
+            <text class="status">{{item.lifecycleText}}</text>
+          </view>
+          <text class="record-scene">{{item.sceneName}}</text>
+          <text class="record-time">{{item.timeText}}</text>
+        </view>
+        <view class="record-meta">
+          <view class="meta-pair"><text class="meta-label">审核</text><text class="meta-value">{{item.reviewText}}</text></view>
+          <view class="meta-pair"><text class="meta-label">已加入</text><text class="meta-value">{{item.acceptedCount}} / {{item.capacity}} 人</text></view>
+        </view>
+        <view class="item-actions">
+          <button wx:if="{{item.lifecycleStatus === 'DRAFT' && (item.reviewStatus === 'NOT_SUBMITTED' || item.reviewStatus === 'REJECTED')}}" class="text-button compact-button motion-press" data-id="{{item.id}}" bindtap="edit">编辑</button>
+          <button class="text-button compact-button motion-press" data-id="{{item.id}}" bindtap="manage">业务管理</button>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="list-heading motion-enter motion-delay-2"><text class="section-title">我的申请</text><text class="list-count">{{applications.length}} 条</text></view>
+    <page-state wx:if="{{!applications.length}}" state="empty" title="还没有申请记录" message="在搭子广场找到感兴趣的活动并申请" />
+    <view wx:else class="list-stack motion-enter motion-delay-2">
+      <view wx:for="{{applications}}" wx:key="id" class="record-card application-record">
+        <view class="record-main" data-id="{{item.activityId}}" bindtap="openActivity">
+          <view class="record-title-row">
+            <text class="item-title">活动 #{{item.activityId}}</text>
+            <text class="status {{item.statusTone}}">{{item.statusText}}</text>
+          </view>
+          <text class="record-time">申请于 {{item.timeText}}</text>
+        </view>
+        <text wx:if="{{item.decisionReason}}" class="reason">处理说明：{{item.decisionReason}}</text>
+        <button wx:if="{{item.status === 'PENDING' || item.status === 'ACCEPTED'}}" class="text-button compact-button withdraw motion-press" data-id="{{item.id}}" bindtap="withdraw">{{item.status === 'ACCEPTED' ? '退出活动' : '撤回申请'}}</button>
+      </view>
+    </view>
+  </block>
+</view>

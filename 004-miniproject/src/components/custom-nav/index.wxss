@@ -1,0 +1,20 @@
+.custom-nav {
+  display: flex;
+  width: calc(100% + 48rpx);
+  margin-left: -24rpx;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 24rpx;
+  background: transparent;
+}
+
+.nav-title {
+  display: block;
+  overflow: hidden;
+  color: #10231e;
+  font-size: 38rpx;
+  font-weight: 800;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

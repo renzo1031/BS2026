@@ -1,0 +1,4 @@
+{
+  "navigationBarTitleText": "活动工作区",
+  "usingComponents": { "page-state": "/components/page-state/index" }
+}

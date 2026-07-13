@@ -1,0 +1,131 @@
+<view class="page favorites-page">
+  <view class="segment motion-enter" role="tablist">
+    <button class="segment-item motion-press {{tab === 'favorites' ? 'segment-item--active' : ''}}" data-tab="favorites" bindtap="switchTab" role="tab" aria-selected="{{tab === 'favorites'}}">我的收藏</button>
+    <button class="segment-item motion-press {{tab === 'reputation' ? 'segment-item--active' : ''}}" data-tab="reputation" bindtap="switchTab" role="tab" aria-selected="{{tab === 'reputation'}}">信誉评价</button>
+    <button class="segment-item motion-press {{tab === 'evaluate' ? 'segment-item--active' : ''}}" data-tab="evaluate" bindtap="switchTab" role="tab" aria-selected="{{tab === 'evaluate'}}">评价同伴</button>
+  </view>
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载收藏与信誉" message="请下拉或点击重试" bind:action="load" />
+
+  <block wx:elif="{{tab === 'favorites'}}">
+    <view class="list-heading motion-enter motion-delay-1">
+      <view>
+        <text class="section-title">收藏的活动</text>
+        <text class="section-copy">快速回到你感兴趣的校园活动</text>
+      </view>
+      <text class="item-count">{{favoriteTotal}} 项</text>
+    </view>
+
+    <page-state wx:if="{{!favorites.length}}" state="empty" title="还没有收藏" message="在活动详情点击收藏后会显示在这里" />
+    <view wx:else class="favorite-list">
+      <view wx:for="{{favorites}}" wx:key="activityId" class="surface favorite-card motion-enter motion-delay-2">
+        <view class="favorite-body" data-id="{{item.activityId}}" bindtap="openActivity" role="button" aria-label="查看活动 {{item.title}}">
+          <view class="favorite-top">
+            <text class="scene-name">{{item.sceneName}}</text>
+            <text class="status {{item.available ? 'status--success' : 'status--warn'}}">{{item.statusText}}</text>
+          </view>
+          <text class="favorite-title">{{item.title}}</text>
+          <text class="favorite-time">{{item.startAtText}}</text>
+        </view>
+        <view class="favorite-footer">
+          <button class="text-button compact-button remove-button motion-press" data-id="{{item.activityId}}" bindtap="unfavorite" aria-label="取消收藏 {{item.title}}">取消收藏</button>
+        </view>
+      </view>
+      <button wx:if="{{favoriteHasMore}}" class="secondary-button load-more motion-press" loading="{{loadingMore}}" disabled="{{loadingMore}}" bindtap="loadMoreFavorites">加载更多</button>
+      <text wx:else class="list-end">已显示全部 {{favoriteTotal}} 项</text>
+    </view>
+  </block>
+
+  <block wx:elif="{{tab === 'reputation'}}">
+    <view wx:if="{{reputation}}" class="reputation-flow">
+      <view class="surface reputation-overview motion-enter motion-delay-1">
+        <view class="score-block">
+          <text class="score">{{averageRatingText}}</text>
+          <text class="score-label">平均评分</text>
+        </view>
+        <view class="received-block">
+          <text class="received-value">{{reputation.receivedCount}}</text>
+          <text class="received-label">收到评价</text>
+        </view>
+        <text class="reputation-note">评分来自完成活动后的同伴评价</text>
+      </view>
+
+      <view class="distribution-section motion-enter motion-delay-2">
+        <text class="section-title">评分分布</text>
+        <view class="surface distribution-list">
+          <view wx:for="{{distributionRows}}" wx:key="rating" class="distribution-row">
+            <text>{{item.rating}} 星</text>
+            <text class="distribution-count">{{item.count}} 条</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="recent-section motion-enter motion-delay-3">
+        <text class="section-title">最近评价</text>
+        <page-state wx:if="{{!recent.length}}" state="empty" title="暂无评价" message="完成活动并收到同伴评价后显示" />
+        <view wx:else class="review-list">
+          <view wx:for="{{recent}}" wx:key="id" class="surface review-card">
+            <view class="row-between">
+              <text class="review-rating">{{item.rating}} 星</text>
+              <text class="review-time">{{item.createdAtText}}</text>
+            </view>
+            <view wx:if="{{item.tags.length}}" class="chip-list review-tags">
+              <text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" class="chip">{{tag}}</text>
+            </view>
+            <text class="review-activity">活动 #{{item.activityId}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="evaluate-heading motion-enter motion-delay-1">
+      <text class="section-title">评价已完成活动的同伴</text>
+      <text class="section-copy">输入你参与过的活动 ID，加载可评价成员。</text>
+    </view>
+
+    <view class="surface evaluation-search motion-enter motion-delay-2">
+      <text class="field-label required">活动 ID</text>
+      <view class="search-row">
+        <input class="input" type="number" value="{{activityId}}" data-field="activityId" bindinput="onInput" placeholder="请输入已完成活动 ID" aria-label="已完成活动 ID" />
+        <button class="secondary-button compact-button motion-press" loading="{{loadingTargets}}" disabled="{{loadingTargets}}" bindtap="loadTargets">加载同伴</button>
+      </view>
+    </view>
+
+    <view wx:if="{{evaluationState === 'ready'}}" class="evaluation-content">
+      <view class="surface evaluation-form motion-enter motion-delay-3">
+        <text class="form-title">本次评价</text>
+        <view class="field">
+          <text class="field-label required">评分</text>
+          <picker range="{{ratingLabels}}" value="{{ratingIndex}}" bindchange="onRatingChange"><view class="picker-field">{{ratingLabels[ratingIndex]}}</view></picker>
+        </view>
+        <view class="field">
+          <text class="field-label">结构化标签</text>
+          <input class="input" maxlength="120" value="{{evaluationTagsText}}" data-field="evaluationTagsText" bindinput="onInput" placeholder="用逗号分隔，最多 5 个" />
+        </view>
+        <view class="field last-field">
+          <text class="field-label">私密备注</text>
+          <textarea class="textarea note-input" maxlength="500" value="{{privateNote}}" data-field="privateNote" bindinput="onInput" placeholder="仅作为本次评价备注" />
+        </view>
+      </view>
+
+      <view class="target-section motion-enter motion-delay-4">
+        <text class="section-title">可评价同伴</text>
+        <view class="target-list">
+          <view wx:for="{{targets}}" wx:key="userId" class="surface target-card">
+            <view class="grow">
+              <text class="target-name">{{item.nickname}}</text>
+              <text class="target-id">用户 #{{item.userId}}</text>
+            </view>
+            <text wx:if="{{item.alreadyEvaluated}}" class="status status--success">已评价</text>
+            <button wx:else class="primary-button compact-button evaluate-button motion-press" data-id="{{item.userId}}" loading="{{busyTargetId === item.userId}}" disabled="{{!!busyTargetId}}" bindtap="evaluate">提交评价</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <page-state wx:elif="{{evaluationState === 'loading'}}" state="loading" title="加载评价对象" message="正在核对活动成员资格" />
+    <page-state wx:elif="{{evaluationState === 'error'}}" state="error" title="无法加载评价对象" message="请确认活动已完成且你是有效成员" bind:action="loadTargets" />
+    <page-state wx:elif="{{evaluationState === 'empty'}}" state="empty" title="没有可评价的同伴" message="可能已全部评价，或活动没有其他有效成员" />
+  </block>
+</view>

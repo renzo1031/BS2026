@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "账号与隐私",
+  "enablePullDownRefresh": true,
+  "usingComponents": { "page-state": "/components/page-state/index" }
+}

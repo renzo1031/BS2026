@@ -1,0 +1,162 @@
+page {
+  background: #f3f6f4;
+}
+
+.security-page {
+  max-width: 760rpx;
+  margin: 0 auto;
+}
+
+.account-sheet,
+.privacy-list {
+  border: 1rpx solid #e0e9e5;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(34, 63, 52, .045);
+}
+
+.account-head,
+.fact-row,
+.identity-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.account-head {
+  align-items: flex-start;
+}
+
+.sheet-title,
+.sheet-copy,
+.fact-label,
+.fact-value,
+.identity-title,
+.identity-empty-copy,
+.masked,
+.identity-type,
+.privacy-title,
+.privacy-copy {
+  display: block;
+}
+
+.sheet-title {
+  color: #1d3129;
+  font-size: 31rpx;
+  font-weight: 760;
+}
+
+.sheet-copy {
+  margin-top: 6rpx;
+  color: #74817b;
+  font-size: 22rpx;
+}
+
+.account-facts {
+  margin-top: 26rpx;
+  padding: 4rpx 0;
+  border-top: 1rpx solid #e7eeea;
+  border-bottom: 1rpx solid #e7eeea;
+}
+
+.fact-row {
+  min-height: 74rpx;
+}
+
+.fact-row + .fact-row {
+  border-top: 1rpx solid #edf1ef;
+}
+
+.fact-label {
+  color: #58675f;
+  font-size: 24rpx;
+}
+
+.fact-value {
+  color: #26372f;
+  font-size: 24rpx;
+  font-weight: 650;
+}
+
+.fact-value--muted {
+  color: #7c8882;
+  font-weight: 500;
+}
+
+.identity-summary,
+.identity-empty {
+  margin-top: 24rpx;
+}
+
+.identity-title {
+  color: #26372f;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.masked {
+  margin-top: 14rpx;
+  color: #153f33;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 34rpx;
+  font-weight: 760;
+}
+
+.identity-type,
+.identity-empty-copy {
+  margin-top: 7rpx;
+  color: #74817b;
+  font-size: 22rpx;
+}
+
+.review-reason {
+  display: block;
+  margin-top: 18rpx;
+  padding: 16rpx 18rpx;
+  border-radius: 14rpx;
+  background: #fff3dc;
+  color: #765015;
+  font-size: 23rpx;
+}
+
+.binding-button {
+  margin-top: 24rpx;
+}
+
+.privacy-section {
+  margin-top: 30rpx;
+}
+
+.privacy-section .section-title {
+  margin-left: 4rpx;
+}
+
+.privacy-list {
+  padding: 4rpx 24rpx;
+}
+
+.privacy-item {
+  padding: 22rpx 0;
+}
+
+.privacy-item + .privacy-item {
+  border-top: 1rpx solid #e8eeeb;
+}
+
+.privacy-title {
+  color: #293a33;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.privacy-copy {
+  margin-top: 7rpx;
+  color: #66756e;
+  font-size: 23rpx;
+  line-height: 1.6;
+}
+
+.logout-button {
+  margin-top: 30rpx;
+}

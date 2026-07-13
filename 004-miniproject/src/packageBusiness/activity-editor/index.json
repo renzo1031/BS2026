@@ -1,0 +1,4 @@
+{
+  "navigationBarTitleText": "发布搭子活动",
+  "usingComponents": { "page-state": "/components/page-state/index" }
+}

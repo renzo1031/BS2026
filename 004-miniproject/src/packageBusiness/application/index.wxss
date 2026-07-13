@@ -1,0 +1,192 @@
+page {
+  background: #f3f6f4;
+}
+
+.application-page {
+  padding-top: 22rpx;
+}
+
+.summary {
+  padding: 24rpx;
+  border: 1rpx solid #dce9e2;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 10rpx 24rpx rgba(34, 63, 52, .045);
+}
+
+.summary-top,
+.summary-meta,
+.progress-copy,
+.note-heading,
+.note-row {
+  display: flex;
+  align-items: center;
+}
+
+.summary-top {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.scene {
+  display: block;
+  color: #147d64;
+  font-size: 23rpx;
+  font-weight: 750;
+}
+
+.title {
+  display: block;
+  margin-top: 8rpx;
+  color: #1a3026;
+  font-size: 36rpx;
+  font-weight: 820;
+  line-height: 1.25;
+}
+
+.summary-top .status {
+  margin-top: 4rpx;
+}
+
+.summary-meta {
+  flex-wrap: wrap;
+  gap: 8rpx 24rpx;
+  margin-top: 14rpx;
+  color: #718079;
+  font-size: 22rpx;
+}
+
+.progress-card {
+  margin-top: 20rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx solid #edf2ef;
+}
+
+.progress-copy {
+  align-items: baseline;
+  gap: 10rpx;
+}
+
+.progress-value {
+  color: #147d64;
+  font-size: 34rpx;
+  font-weight: 820;
+}
+
+.progress-total {
+  color: #5b8576;
+  font-size: 23rpx;
+  font-weight: 600;
+}
+
+.progress-label {
+  color: #718079;
+  font-size: 21rpx;
+}
+
+.apply-note {
+  margin-top: 16rpx;
+  padding: 22rpx 24rpx;
+  border: 1rpx solid #dce9e2;
+  border-radius: 16rpx;
+  background: #eaf5f0;
+}
+
+.note-heading {
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.note-heading .section-title {
+  margin-bottom: 0;
+}
+
+.note-mark {
+  display: flex;
+  width: 40rpx;
+  height: 40rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #d4ecdf;
+  color: #147d64;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.note-list {
+  margin-top: 12rpx;
+}
+
+.note-row {
+  align-items: flex-start;
+  gap: 14rpx;
+  padding: 6rpx 0;
+}
+
+.note-label {
+  width: 110rpx;
+  flex: none;
+  color: #6b8378;
+  font-size: 22rpx;
+}
+
+.note-value {
+  min-width: 0;
+  flex: 1;
+  color: #3f5b4e;
+  font-size: 23rpx;
+  line-height: 1.45;
+}
+
+.form-journey {
+  display: grid;
+  gap: 16rpx;
+}
+
+.form-section {
+  border-radius: 16rpx;
+}
+
+.question-card {
+  padding: 17rpx;
+  border-radius: 18rpx;
+  background: #f0f7f3;
+}
+
+.answer {
+  min-height: 136rpx;
+  margin-top: 10rpx;
+}
+
+.last-field {
+  margin-bottom: 0;
+}
+
+.no-question {
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.agreement {
+  display: block;
+  color: #7c8983;
+  font-size: 22rpx;
+  line-height: 1.6;
+}
+
+.submit {
+  margin-top: 2rpx;
+  margin-bottom: calc(18rpx + env(safe-area-inset-bottom));
+}
+
+@media (max-width: 420px) {
+  .title {
+    font-size: 33rpx;
+  }
+
+  .note-label {
+    width: 96rpx;
+  }
+}

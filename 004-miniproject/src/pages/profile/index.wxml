@@ -1,0 +1,63 @@
+<view class="page profile-page">
+  <custom-nav title="我的" />
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载个人中心" message="请下拉或点击重试" bind:action="load" />
+
+  <block wx:elif="{{overview}}">
+    <view class="surface hero-panel profile-hero motion-enter">
+      <view class="avatar">
+        <image wx:if="{{avatarUrl}}" class="avatar-image" src="{{avatarUrl}}" mode="aspectFill" binderror="onAvatarImageError" />
+        <text wx:else>{{overview.user.nickname.slice(0, 1)}}</text>
+      </view>
+      <view class="grow">
+        <view class="row profile-title-row">
+          <text class="nickname">{{overview.user.nickname}}</text>
+          <text class="status {{overview.user.verificationStatus === 'APPROVED' ? 'status--success' : 'status--warn'}}">{{overview.user.verificationStatus === 'APPROVED' ? '已认证' : '待认证'}}</text>
+        </view>
+        <text class="profile-meta">{{overview.user.majorName || '专业待完善'}}，{{overview.user.gradeName || '年级待完善'}}</text>
+        <text class="verification">{{verificationHint}}</text>
+      </view>
+      <button class="text-button compact-button" data-url="/packageAccount/profile-edit/index" bindtap="open">编辑</button>
+    </view>
+
+    <view class="surface completion-card motion-enter motion-delay-1">
+      <view class="row-between">
+        <view>
+          <text class="completion-title">资料完整度</text>
+          <text class="completion-desc">{{completionText}}，完整资料更容易被同学信任</text>
+        </view>
+        <text class="completion-value">{{completionPercent}}%</text>
+      </view>
+      <view wx:if="{{interestTags.length}}" class="chip-list interest-tags">
+        <text wx:for="{{interestTags}}" wx:key="*this" wx:for-item="tag" class="chip">{{tag}}</text>
+      </view>
+      <text wx:else class="caption interest-empty">还没有兴趣标签，去编辑资料补充几个常用搭子偏好吧。</text>
+      <view class="stats">
+        <view><text class="stat-value">{{overview.publishedCount}}</text><text class="stat-label">我发布的</text></view>
+        <view><text class="stat-value">{{overview.joinedCount}}</text><text class="stat-label">我参与的</text></view>
+        <view><text class="stat-value">{{overview.pendingApplicationCount}}</text><text class="stat-label">待处理报名</text></view>
+        <view><text class="stat-value">{{overview.unreadNotificationCount}}</text><text class="stat-label">未读通知</text></view>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">常用入口</text>
+      <view class="quick-grid">
+        <view wx:for="{{quickActions}}" wx:key="url" wx:for-item="action" class="surface quick-card motion-enter motion-press" data-url="{{action.url}}" bindtap="open" role="button" aria-label="打开{{action.title}}">
+          <image class="quick-icon" src="{{action.icon}}" mode="aspectFit" />
+          <view class="grow">
+            <text class="quick-title">{{action.title}}</text>
+            <text class="quick-desc">{{action.desc}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="surface menu section motion-enter">
+      <view class="menu-item motion-press" data-url="/packageBusiness/my-activities/index" bindtap="open" role="button" aria-label="打开我的活动与申请"><text>我的活动与申请</text><text class="menu-arrow">›</text></view>
+      <view class="menu-item motion-press" data-url="/pages/messages/index" bindtap="open" role="button" aria-label="打开消息与通知"><text>消息与通知</text><text class="menu-arrow">›</text></view>
+    </view>
+
+    <button class="secondary-button logout" loading="{{loggingOut}}" bindtap="logout">退出登录</button>
+  </block>
+</view>

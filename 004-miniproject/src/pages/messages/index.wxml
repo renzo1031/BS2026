@@ -1,0 +1,68 @@
+<view class="page messages-page">
+  <custom-nav title="消息" />
+
+  <view class="message-intro motion-enter">
+    <view>
+      <text class="message-title">消息都在这里</text>
+      <text class="message-subtitle">活动沟通和审核变化会及时提醒你</text>
+    </view>
+    <view class="unread-bubble">
+      <text class="unread-value">{{unreadCount}}</text>
+      <text class="unread-label">未读</text>
+    </view>
+  </view>
+
+  <view class="segment motion-enter motion-delay-1" role="tablist">
+    <button class="segment-item motion-press {{tab === 'conversations' ? 'segment-item--active' : ''}}" data-tab="conversations" bindtap="switchTab" role="tab" aria-selected="{{tab === 'conversations'}}">搭子群聊 {{conversationCount}}</button>
+    <button class="segment-item motion-press {{tab === 'notifications' ? 'segment-item--active' : ''}}" data-tab="notifications" bindtap="switchTab" role="tab" aria-selected="{{tab === 'notifications'}}">系统通知 {{unreadCount ? unreadCount : ''}}</button>
+  </view>
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载消息" message="请下拉或点击重试" bind:action="load" />
+
+  <block wx:elif="{{tab === 'conversations'}}">
+    <view class="section-note motion-enter">
+      <text>当前有 {{activeConversationCount}} 个可交流会话</text>
+    </view>
+    <page-state wx:if="{{!conversations.length}}" state="empty" title="还没有搭子群聊" message="报名被接受后，会自动创建活动会话" />
+    <view wx:else class="conversation-list">
+      <view wx:for="{{conversations}}" wx:key="id" class="conversation-card motion-enter motion-press" data-id="{{item.id}}" bindtap="openConversation" role="button" aria-label="打开活动群聊 {{item.activityTitle}}">
+        <view class="conversation-mark">搭</view>
+        <view class="grow">
+          <view class="row-between"><text class="item-title">{{item.activityTitle}}</text><text class="status {{item.status === 'READ_ONLY' ? 'status--warn' : 'status--success'}}">{{item.status === 'READ_ONLY' ? '只读' : '可交流'}}</text></view>
+          <text class="muted">{{item.status === 'READ_ONLY' ? '活动已结束，仅可查看历史消息' : '进入群聊，继续确认时间和地点'}}</text>
+          <text class="caption conversation-time">最近更新 {{item.updatedAtText}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="notification-toolbar motion-enter"><text class="muted">审核、报名和活动状态提醒</text><button class="text-button compact-button motion-press" disabled="{{!unreadCount}}" bindtap="readAll">全部已读</button></view>
+    <page-state wx:if="{{!notifications.length}}" state="empty" title="暂无系统通知" message="重要业务变化会在这里提醒你" />
+    <view wx:else class="notification-groups">
+      <view wx:if="{{unreadNotifications.length}}" class="group-block">
+        <text class="group-title">未读提醒</text>
+        <view wx:for="{{unreadNotifications}}" wx:key="id" class="notification-card notification--unread motion-enter motion-press" data-id="{{item.id}}" bindtap="openNotification" role="button" aria-label="查看通知 {{item.title}}">
+          <view class="notification-dot"></view>
+          <view class="grow">
+            <view class="row-between"><text class="item-title">{{item.title}}</text><text class="notification-tag">{{item.tagText}}</text></view>
+            <text class="muted notification-content">{{item.content}}</text>
+            <text class="caption">{{item.createdAtText}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{readNotifications.length}}" class="group-block">
+        <text class="group-title">已读记录</text>
+        <view wx:for="{{readNotifications}}" wx:key="id" class="notification-card motion-enter motion-press" data-id="{{item.id}}" bindtap="openNotification" role="button" aria-label="查看通知 {{item.title}}">
+          <view class="notification-dot"></view>
+          <view class="grow">
+            <view class="row-between"><text class="item-title">{{item.title}}</text><text class="notification-tag">{{item.tagText}}</text></view>
+            <text class="muted notification-content">{{item.content}}</text>
+            <text class="caption">{{item.createdAtText}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

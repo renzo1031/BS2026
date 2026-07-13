@@ -1,0 +1,14 @@
+<view wx:if="{{state !== 'ready'}}" class="state" role="status" aria-live="polite">
+  <view wx:if="{{state === 'loading'}}" class="state-mark state-mark--loading"></view>
+  <image wx:elif="{{state === 'error'}}" class="state-icon" src="/assets/icons/state-error.png" mode="aspectFit" />
+  <image wx:elif="{{state === 'forbidden'}}" class="state-icon" src="/assets/icons/state-forbidden.png" mode="aspectFit" />
+  <image wx:elif="{{state === 'not-found'}}" class="state-icon" src="/assets/icons/state-not-found.png" mode="aspectFit" />
+  <image wx:else class="state-icon" src="/assets/icons/state-info.png" mode="aspectFit" />
+  <text class="state-title">{{title}}</text>
+  <text class="state-message">{{message}}</text>
+  <button
+    wx:if="{{state === 'error' || state === 'forbidden'}}"
+    class="secondary-button state-action"
+    bindtap="onAction"
+  >{{actionText}}</button>
+</view>

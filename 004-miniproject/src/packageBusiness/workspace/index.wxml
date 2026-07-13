@@ -1,0 +1,45 @@
+<view class="workspace">
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="进入活动工作区" message="仅活动有效成员可以访问" bind:action="load" />
+  <block wx:elif="{{conversation && activity}}">
+    <view class="workspace-header motion-enter">
+      <view class="workspace-heading">
+        <text class="workspace-eyebrow">活动工作区</text>
+        <text class="workspace-title">{{conversation.activityTitle}}</text>
+        <text class="workspace-status">{{conversation.status === 'READ_ONLY' ? '活动已结束，可查看历史消息' : socketReady ? '消息实时同步中' : '消息可正常发送'}}</text>
+      </view>
+      <text class="status {{conversation.status === 'OPEN' ? 'status--success' : 'status--warn'}}">{{activity.lifecycleText}}</text>
+    </view>
+
+    <view class="activity-strip motion-enter motion-delay-1">
+      <view class="strip-item"><text class="strip-label">时间</text><text class="strip-value">{{activity.timeText}}</text></view>
+      <view class="strip-item"><text class="strip-label">地点</text><text class="strip-value">{{activity.locationText}}</text></view>
+      <view class="strip-item"><text class="strip-label">形式</text><text class="strip-value">{{activity.modeText}}</text></view>
+    </view>
+
+    <view wx:if="{{activity.lifecycleStatus === 'COMPLETION_PENDING'}}" class="completion motion-enter motion-delay-2">
+      <view class="completion-copy"><text class="completion-title">确认本次活动结果</text><text class="completion-subtitle">发起人已申请完成，请告诉我们你的参与情况。</text></view>
+      <view class="completion-actions">
+        <button class="secondary-button compact-button motion-press" data-disputed="true" bindtap="confirmCompletion">有异议</button>
+        <button class="primary-button compact-button motion-press" data-disputed="false" bindtap="confirmCompletion">确认完成</button>
+      </view>
+    </view>
+
+    <text wx:if="{{truncated}}" class="history-warning motion-enter">历史消息超过 1000 条，当前仅展示最早 1000 条。</text>
+
+    <scroll-view class="message-list motion-enter motion-delay-2" scroll-y scroll-into-view="{{scrollIntoView}}">
+      <page-state wx:if="{{!messages.length}}" state="empty" title="还没有消息" message="发一条消息，和搭子确认活动安排" />
+      <view wx:else class="message-tip"><text>聊天只服务本次活动，重要地点和时间请以工作区信息为准。</text></view>
+      <view wx:for="{{messages}}" wx:key="id" id="message-{{item.id}}" class="message-row {{item.mine ? 'message-row--mine' : ''}}">
+        <text class="sender">{{item.mine ? '我' : item.senderNickname}}</text>
+        <view class="bubble"><text wx:if="{{item.messageType === 'TEXT'}}">{{item.content}}</text><text wx:else>[图片消息暂不支持展示]</text></view>
+        <text class="message-time">{{item.createdAtText}}</text>
+      </view>
+      <view class="safe-bottom"></view>
+    </scroll-view>
+
+    <view class="composer motion-enter motion-delay-3">
+      <textarea class="composer-input" auto-height maxlength="1000" value="{{content}}" disabled="{{conversation.status !== 'OPEN'}}" placeholder="{{conversation.status === 'OPEN' ? '输入消息' : '会话已只读'}}" bindinput="onInput" />
+      <button class="primary-button send-button motion-press" loading="{{sending}}" disabled="{{!content || sending || conversation.status !== 'OPEN'}}" bindtap="send">发送</button>
+    </view>
+  </block>
+</view>

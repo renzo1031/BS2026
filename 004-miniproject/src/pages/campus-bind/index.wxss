@@ -1,0 +1,142 @@
+page {
+  background: #f3f6f4;
+}
+
+.bind-page {
+  max-width: 760rpx;
+  margin: 0 auto;
+}
+
+.page-header {
+  padding-bottom: 30rpx;
+}
+
+.binding-state,
+.credential-form {
+  border: 1rpx solid #dfe9e4;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 10rpx 28rpx rgba(34, 63, 52, .05);
+}
+
+.binding-head,
+.proof-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.binding-title,
+.binding-subtitle,
+.credential-label,
+.binding-id,
+.state-note,
+.sheet-title,
+.sheet-copy,
+.proof-note {
+  display: block;
+}
+
+.binding-title,
+.sheet-title {
+  color: #1c3029;
+  font-size: 31rpx;
+  font-weight: 760;
+}
+
+.binding-subtitle,
+.sheet-copy {
+  margin-top: 6rpx;
+  color: #738079;
+  font-size: 22rpx;
+}
+
+.credential-line {
+  margin-top: 30rpx;
+  padding: 24rpx 0;
+  border-top: 1rpx solid #e8eeeb;
+  border-bottom: 1rpx solid #e8eeeb;
+}
+
+.credential-label {
+  color: #74817b;
+  font-size: 22rpx;
+}
+
+.binding-id {
+  margin-top: 8rpx;
+  color: #173d32;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 34rpx;
+  font-weight: 750;
+}
+
+.reason {
+  display: block;
+  margin-top: 20rpx;
+  padding: 18rpx 20rpx;
+  border-left: 6rpx solid #c54a41;
+  border-radius: 0 14rpx 14rpx 0;
+  background: #fff5f3;
+  color: #8d3029;
+  font-size: 24rpx;
+}
+
+.state-note {
+  margin-top: 20rpx;
+  color: #66756f;
+  font-size: 23rpx;
+}
+
+.relogin,
+.submit-button {
+  margin-top: 26rpx;
+}
+
+.sheet-head {
+  padding-bottom: 22rpx;
+  border-bottom: 1rpx solid #e8eeeb;
+}
+
+.credential-form .field {
+  margin-bottom: 0;
+  padding: 24rpx 0;
+}
+
+.field-divided {
+  border-bottom: 1rpx solid #e8eeeb;
+}
+
+.proof-field {
+  padding-bottom: 0;
+}
+
+.proof-heading .field-label {
+  margin-bottom: 0;
+}
+
+.proof-state {
+  color: #147d64;
+  font-size: 22rpx;
+  font-weight: 650;
+}
+
+.proof-trigger {
+  margin-top: 16rpx;
+}
+
+.proof-preview {
+  width: 100%;
+  height: 320rpx;
+  margin-top: 18rpx;
+  border-radius: 16rpx;
+  background: #eef3f1;
+}
+
+.proof-note {
+  margin-top: 14rpx;
+  color: #718079;
+  font-size: 22rpx;
+  line-height: 1.55;
+}

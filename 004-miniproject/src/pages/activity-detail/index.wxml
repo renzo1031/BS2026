@@ -1,0 +1,78 @@
+<view class="page detail-page">
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="活动详情" message="活动可能已失效，或网络暂时不可用" bind:action="load" />
+
+  <block wx:elif="{{detail}}">
+    <swiper wx:if="{{imageUrls.length}}" class="detail-media motion-enter" indicator-dots autoplay="{{false}}">
+      <swiper-item wx:for="{{imageUrls}}" wx:key="*this">
+        <image class="media-image" src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+    <view wx:else class="detail-cover motion-enter">
+      <text class="cover-scene">{{detail.sceneName}}</text>
+      <text class="cover-mark">搭</text>
+      <text class="cover-hint">校园认证活动</text>
+    </view>
+
+    <view class="detail-head motion-enter motion-delay-1">
+      <view class="detail-headline">
+        <text class="scene">{{detail.sceneName}}</text>
+        <text class="status {{detail.lifecycleTone}}">{{detail.lifecycleText}}</text>
+      </view>
+      <text class="detail-title">{{detail.title}}</text>
+      <view class="detail-meta">
+        <text>{{detail.startAtText}}</text>
+        <text>{{detail.modeText}}</text>
+        <text>{{detail.acceptedCount}} / {{detail.capacity}} 人</text>
+      </view>
+      <view wx:if="{{detail.tags.length}}" class="chip-list detail-tags">
+        <text wx:for="{{detail.tags}}" wx:key="*this" class="chip">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="trust-line motion-enter motion-delay-2">
+      <view class="trust-mark">校</view>
+      <view class="grow">
+        <text class="trust-title">{{isCreator ? '这是你发布的活动' : '校园认证用户发布'}}</text>
+        <text class="caption">{{detail.actionHint}}</text>
+      </view>
+    </view>
+
+    <view class="detail-section motion-enter motion-delay-3">
+      <view class="section-heading"><text class="section-title">活动安排</text></view>
+      <view class="facts-grid">
+        <view class="fact"><text class="fact-label">开始</text><text class="fact-value">{{detail.startAtText}}</text></view>
+        <view class="fact"><text class="fact-label">结束</text><text class="fact-value">{{detail.endAtText}}</text></view>
+        <view class="fact"><text class="fact-label">报名截止</text><text class="fact-value">{{detail.applyDeadlineText}}</text></view>
+        <view class="fact"><text class="fact-label">活动形式</text><text class="fact-value">{{detail.modeText}}</text></view>
+        <view class="fact fact--location"><text class="fact-label">公开地点</text><text class="fact-value">{{detail.publicLocation || '报名通过后沟通'}}</text></view>
+        <view class="fact"><text class="fact-label">名额</text><text class="fact-value">{{detail.acceptedCount}} / {{detail.capacity}} 人</text></view>
+      </view>
+    </view>
+
+    <view class="detail-section motion-enter motion-delay-3">
+      <text class="section-title">活动介绍</text>
+      <text class="long-text">{{detail.description}}</text>
+      <view wx:if="{{detail.joinRequirement}}" class="subsection">
+        <text class="subsection-title">参与要求</text>
+        <text class="long-text">{{detail.joinRequirement}}</text>
+      </view>
+      <view wx:if="{{detail.joinQuestions.length}}" class="subsection">
+        <text class="subsection-title">报名时需要回答</text>
+        <text wx:for="{{detail.joinQuestions}}" wx:key="*this" class="question">{{index + 1}}. {{item}}</text>
+      </view>
+    </view>
+
+    <view class="notice-line motion-enter motion-delay-4">
+      <text class="notice-icon">i</text>
+      <text class="notice-copy">通过报名后才能查看成员详细地点。线下见面前，请勿分享宿舍门牌和手机号。</text>
+    </view>
+
+    <view class="detail-actions motion-enter motion-delay-4">
+      <button class="secondary-button motion-press" loading="{{favoriteBusy}}" bindtap="favorite">收藏</button>
+      <button class="secondary-button motion-press" bindtap="report">举报</button>
+      <button wx:if="{{isCreator}}" class="secondary-button motion-press" bindtap="edit">编辑</button>
+      <button wx:if="{{isCreator}}" class="primary-button motion-press" bindtap="manage">管理报名</button>
+      <button wx:elif="{{detail.lifecycleStatus === 'RECRUITING'}}" class="primary-button motion-press action-main" bindtap="apply">申请加入</button>
+    </view>
+  </block>
+</view>

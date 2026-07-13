@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "收藏与信誉",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 120,
+  "usingComponents": { "page-state": "/components/page-state/index" }
+}

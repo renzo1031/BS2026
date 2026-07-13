@@ -1,0 +1,64 @@
+<view class="page security-page">
+  <view class="page-header motion-enter">
+    <text class="page-title">账号与隐私</text>
+    <text class="page-subtitle">查看当前生效的账号状态和校园身份。</text>
+  </view>
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载账号信息" message="登录可能已失效，请重试或重新登录" bind:action="load" />
+
+  <block wx:else>
+    <view class="surface account-sheet motion-enter motion-delay-1">
+      <view class="account-head">
+        <view>
+          <text class="sheet-title">账号状态</text>
+          <text class="sheet-copy">权限以服务端当前结果为准</text>
+        </view>
+        <text class="status {{user.status === 'ACTIVE' ? 'status--success' : 'status--warn'}}">{{accountStatusText}}</text>
+      </view>
+
+      <view class="account-facts">
+        <view class="fact-row">
+          <text class="fact-label">校园认证</text>
+          <text class="status {{user.verificationStatus === 'APPROVED' ? 'status--success' : 'status--warn'}}">{{verificationStatusText}}</text>
+        </view>
+        <view class="fact-row">
+          <text class="fact-label">当前校园</text>
+          <text wx:if="{{user.campusId}}" class="fact-value">校园 #{{user.campusId}}</text>
+          <text wx:else class="fact-value fact-value--muted">尚未绑定</text>
+        </view>
+      </view>
+
+      <view wx:if="{{binding}}" class="identity-summary">
+        <view class="identity-head">
+          <text class="identity-title">校园身份</text>
+          <text class="status {{binding.status === 'APPROVED' ? 'status--success' : (binding.status === 'REJECTED' ? 'status--danger' : 'status--warn')}}">{{bindingStatusText}}</text>
+        </view>
+        <text class="masked">{{binding.identifierMasked}}</text>
+        <text class="identity-type">{{binding.identifierType}}</text>
+        <text wx:if="{{binding.reviewReason}}" class="review-reason">审核说明：{{binding.reviewReason}}</text>
+      </view>
+      <view wx:else class="identity-empty">
+        <text class="identity-title">{{user.verificationStatus === 'APPROVED' ? '校园身份已认证' : '尚未绑定校园身份'}}</text>
+        <text class="identity-empty-copy">{{user.verificationStatus === 'APPROVED' ? '服务端已确认当前校园权限。' : '完成认证后才能发布和加入活动。'}}</text>
+      </view>
+
+      <button wx:if="{{canOpenBinding}}" class="secondary-button binding-button motion-press" bindtap="openBinding">提交校园认证</button>
+    </view>
+
+    <view class="privacy-section motion-enter motion-delay-2">
+      <text class="section-title">隐私边界</text>
+      <view class="surface privacy-list">
+        <view class="privacy-item">
+          <text class="privacy-title">身份凭证</text>
+          <text class="privacy-copy">小程序仅展示脱敏标识，不展示完整编号和证明文件地址。</text>
+        </view>
+        <view class="privacy-item">
+          <text class="privacy-title">活动地点</text>
+          <text class="privacy-copy">成员地点仅向发布者、审核员和活动有效成员开放。</text>
+        </view>
+      </view>
+    </view>
+
+    <button class="danger-button logout-button motion-enter motion-delay-3 motion-press" loading="{{loggingOut}}" disabled="{{loggingOut}}" bindtap="logout">退出当前账号</button>
+  </block>
+</view>

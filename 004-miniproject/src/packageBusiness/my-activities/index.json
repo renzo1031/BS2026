@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "我的活动与申请",
+  "enablePullDownRefresh": true,
+  "usingComponents": { "page-state": "/components/page-state/index" }
+}

@@ -1,0 +1,257 @@
+page {
+  background: #eef4f1;
+}
+
+.workspace {
+  display: flex;
+  height: 100vh;
+  min-height: 100vh;
+  flex-direction: column;
+  background: #eef4f1;
+}
+
+.workspace-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18rpx;
+  padding: 22rpx 26rpx 18rpx;
+  border-bottom: 1rpx solid #dce8e2;
+  background: rgba(255, 255, 255, .94);
+}
+
+.workspace-heading {
+  min-width: 0;
+  flex: 1;
+}
+
+.workspace-eyebrow {
+  display: block;
+  color: #147d64;
+  font-size: 20rpx;
+  font-weight: 800;
+  letter-spacing: 2rpx;
+}
+
+.workspace-title {
+  display: block;
+  margin-top: 5rpx;
+  overflow: hidden;
+  color: #19332a;
+  font-size: 31rpx;
+  font-weight: 760;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workspace-status {
+  display: block;
+  margin-top: 5rpx;
+  overflow: hidden;
+  color: #75847d;
+  font-size: 21rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workspace-header .status {
+  margin-top: 28rpx;
+}
+
+.activity-strip {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 1rpx;
+  border-bottom: 1rpx solid #dce8e2;
+  background: #dce8e2;
+}
+
+.strip-item {
+  min-width: 0;
+  padding: 15rpx 18rpx;
+  background: #ffffff;
+}
+
+.strip-label,
+.strip-value {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.strip-label {
+  color: #89968f;
+  font-size: 20rpx;
+}
+
+.strip-value {
+  margin-top: 3rpx;
+  color: #30453a;
+  font-size: 22rpx;
+  font-weight: 650;
+}
+
+.strip-item:first-child .strip-value,
+.strip-item:nth-child(2) .strip-value {
+  overflow: visible;
+  line-height: 1.45;
+  text-overflow: clip;
+  white-space: normal;
+  word-break: break-all;
+}
+
+.completion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  padding: 18rpx 24rpx;
+  background: #fff7e3;
+  color: #644d1d;
+}
+
+.completion-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.completion-title,
+.completion-subtitle {
+  display: block;
+}
+
+.completion-title {
+  font-size: 24rpx;
+  font-weight: 750;
+}
+
+.completion-subtitle {
+  margin-top: 4rpx;
+  color: #886d32;
+  font-size: 21rpx;
+}
+
+.completion-actions {
+  display: flex;
+  flex: none;
+  gap: 8rpx;
+}
+
+.completion-actions button {
+  margin: 0;
+}
+
+.history-warning {
+  display: block;
+  padding: 10rpx 24rpx;
+  background: #fff0ed;
+  color: #96352d;
+  font-size: 21rpx;
+  text-align: center;
+}
+
+.message-list {
+  min-height: 0;
+  flex: 1;
+  padding: 20rpx 24rpx 0;
+}
+
+.message-tip {
+  margin: 0 auto 20rpx;
+  padding: 11rpx 16rpx;
+  border: 1rpx solid #dce8e2;
+  border-radius: 18rpx;
+  background: rgba(255, 255, 255, .72);
+  color: #718079;
+  font-size: 21rpx;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.message-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20rpx;
+}
+
+.message-row--mine {
+  align-items: flex-end;
+}
+
+.sender,
+.message-time {
+  color: #829089;
+  font-size: 20rpx;
+}
+
+.bubble {
+  max-width: 78%;
+  margin: 6rpx 0 4rpx;
+  padding: 15rpx 18rpx;
+  border: 1rpx solid #dbe6e1;
+  border-radius: 20rpx 20rpx 20rpx 6rpx;
+  background: #ffffff;
+  color: #273c32;
+  font-size: 25rpx;
+  line-height: 1.55;
+  word-break: break-all;
+}
+
+.message-row--mine .bubble {
+  border-color: #bcdccd;
+  border-radius: 20rpx 20rpx 6rpx 20rpx;
+  background: #dff1e9;
+}
+
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 12rpx;
+  padding: 14rpx 18rpx calc(14rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid #dce8e2;
+  background: rgba(255, 255, 255, .96);
+}
+
+.composer-input {
+  min-height: 72rpx;
+  max-height: 180rpx;
+  padding: 15rpx 16rpx;
+  flex: 1;
+  border: 1rpx solid #cddcd4;
+  border-radius: 20rpx;
+  background: #f7faf8;
+  color: #1d3329;
+  font-size: 25rpx;
+}
+
+.send-button {
+  width: 128rpx;
+  min-height: 72rpx;
+  margin: 0;
+  line-height: 72rpx;
+}
+
+@media (max-width: 420px) {
+  .activity-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .strip-item:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .completion {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .completion-actions {
+    width: 100%;
+  }
+
+  .completion-actions button {
+    flex: 1;
+  }
+}

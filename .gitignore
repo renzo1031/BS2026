@@ -49,6 +49,20 @@ pnpm-debug.log*
 # Test / reports
 playwright-report/
 test-results/
+.playwright-cli/
+.playwright-mcp/
+output/
+
+# WeChat Mini Program
+.miniprogram-ci/
+.test-dist/
+.cloudbase/
+project.private.config.json
+
+# Runtime data
+uploads/
+*.out
+*.pid
 
 # Local temp
 tmp/

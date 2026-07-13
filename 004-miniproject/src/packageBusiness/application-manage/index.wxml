@@ -1,0 +1,56 @@
+<view class="page application-manage-page">
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载活动管理" message="仅活动发起人可访问" bind:action="load" />
+  <block wx:elif="{{activity}}">
+    <view class="manage-head motion-enter">
+      <text class="manage-eyebrow">活动管理</text>
+      <view class="manage-title-row">
+        <text class="activity-title">{{activity.title}}</text>
+        <text class="status status--success">{{activity.acceptedCount}} / {{activity.capacity}} 人</text>
+      </view>
+      <view class="manage-status-row">
+        <view class="status-pair"><text class="status-label">审核</text><text class="status-value">{{activity.reviewText}}</text></view>
+        <view class="status-pair"><text class="status-label">状态</text><text class="status-value">{{activity.lifecycleText}}</text></view>
+      </view>
+    </view>
+
+    <view wx:if="{{stats}}" class="manage-stats motion-enter motion-delay-1">
+      <view class="manage-stat"><text class="manage-value">{{stats.pending}}</text><text class="manage-label">待处理</text></view>
+      <view class="manage-stat"><text class="manage-value">{{stats.accepted}}</text><text class="manage-label">已接受</text></view>
+      <view class="manage-stat"><text class="manage-value">{{stats.rejected}}</text><text class="manage-label">已拒绝</text></view>
+      <view class="manage-stat"><text class="manage-value">{{stats.openSeats}}</text><text class="manage-label">剩余名额</text></view>
+    </view>
+
+    <view class="lifecycle-actions motion-enter motion-delay-1">
+      <button wx:if="{{activity.lifecycleStatus === 'DRAFT' && (activity.reviewStatus === 'NOT_SUBMITTED' || activity.reviewStatus === 'REJECTED')}}" class="secondary-button compact motion-press" bindtap="edit">编辑草稿</button>
+      <button wx:if="{{activity.reviewStatus === 'APPROVED' && activity.lifecycleStatus === 'RECRUITING'}}" class="primary-button compact motion-press" data-action="start" loading="{{actionBusy}}" disabled="{{actionBusy}}" bindtap="lifecycle">开始活动</button>
+      <button wx:if="{{activity.lifecycleStatus === 'IN_PROGRESS'}}" class="primary-button compact motion-press" data-action="request-completion" loading="{{actionBusy}}" disabled="{{actionBusy}}" bindtap="lifecycle">发起完成确认</button>
+      <button wx:if="{{activity.lifecycleStatus !== 'COMPLETED' && activity.lifecycleStatus !== 'CANCELLED' && activity.lifecycleStatus !== 'EXPIRED'}}" class="danger-button compact motion-press" data-action="cancel" loading="{{actionBusy}}" disabled="{{actionBusy}}" bindtap="lifecycle">取消活动</button>
+    </view>
+
+    <view class="applications-section motion-enter motion-delay-2">
+      <view class="list-heading"><view><text class="section-title">报名申请</text><text class="section-copy">先处理待确认的申请</text></view><text class="list-count">{{applications.length}} 条</text></view>
+      <page-state wx:if="{{!applications.length}}" state="empty" title="还没有报名申请" message="活动通过审核并公开后，申请会出现在这里" />
+      <view wx:else class="list-stack">
+        <view wx:for="{{applications}}" wx:key="id" class="application-card">
+          <view class="applicant-head">
+            <view class="grow">
+              <text class="applicant">{{item.applicantNickname}}</text>
+              <text class="caption">{{item.createdAtText}}</text>
+            </view>
+            <text class="status {{item.status === 'ACCEPTED' ? 'status--success' : item.status === 'PENDING' ? 'status--warn' : item.status === 'REJECTED' ? 'status--danger' : ''}}">{{item.statusText}}</text>
+          </view>
+          <view wx:if="{{item.answers.length}}" class="answers">
+            <text class="answers-title">报名回答</text>
+            <text wx:for="{{item.answers}}" wx:key="*this" class="answer">{{index + 1}}. {{item}}</text>
+          </view>
+          <text wx:if="{{item.message}}" class="message"><text class="message-label">补充说明</text>{{item.message}}</text>
+          <text wx:if="{{item.decisionReason}}" class="message"><text class="message-label">处理说明</text>{{item.decisionReason}}</text>
+          <view wx:if="{{item.status === 'PENDING'}}" class="decision-row">
+            <button class="secondary-button compact motion-press" data-id="{{item.id}}" data-accept="false" loading="{{actionBusy}}" disabled="{{actionBusy}}" bindtap="decide">拒绝</button>
+            <button class="primary-button compact motion-press" data-id="{{item.id}}" data-accept="true" loading="{{actionBusy}}" disabled="{{actionBusy}}" bindtap="decide">接受</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

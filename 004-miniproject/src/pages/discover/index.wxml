@@ -1,0 +1,81 @@
+<view class="page discover-page">
+  <custom-nav title="搭子广场" />
+
+  <view class="discover-intro">
+    <view class="intro-copy">
+      <text class="intro-title">找个搭子，一起出发</text>
+      <text class="intro-subtitle">浏览本校审核通过的活动</text>
+    </view>
+    <button class="publish-button motion-press" bindtap="createActivity" aria-label="发布活动">
+      <text class="publish-plus">+</text>
+      <text>发布</text>
+    </button>
+  </view>
+
+  <view class="search-box motion-enter motion-delay-1">
+    <icon class="search-icon" type="search" size="18" color="#73817b" />
+    <input
+      class="search-input"
+      value="{{keyword}}"
+      confirm-type="search"
+      placeholder="搜索活动、场景或标签"
+      aria-label="搜索活动、场景或标签"
+      bindinput="onKeywordInput"
+      bindconfirm="search"
+    />
+    <button class="search-action motion-press" bindtap="search" aria-label="搜索">搜索</button>
+  </view>
+
+  <scroll-view class="mode-scroll motion-enter motion-delay-2" scroll-x="true" show-scrollbar="false" enhanced="true">
+    <view class="mode-list" role="tablist">
+      <button
+        wx:for="{{modeLabels}}"
+        wx:key="*this"
+        wx:for-item="mode"
+        wx:for-index="index"
+        class="mode-chip motion-press {{modeIndex === index ? 'mode-chip--active' : ''}}"
+        data-index="{{index}}"
+        bindtap="selectMode"
+        role="tab"
+        aria-selected="{{modeIndex === index}}"
+      >{{mode}}</button>
+    </view>
+  </scroll-view>
+
+  <page-state wx:if="{{state === 'loading' || state === 'error'}}" state="{{state}}" title="加载活动" message="请下拉或点击重试" bind:action="search" />
+  <page-state wx:elif="{{state === 'empty'}}" state="empty" title="暂时没有匹配的活动" message="换个条件，或者发布第一场搭子活动" />
+
+  <view wx:else class="feed motion-enter motion-delay-3">
+    <view class="feed-head">
+      <text class="section-title">{{keyword ? '搜索结果' : '正在招募'}}</text>
+      <text class="feed-count">{{total}} 个活动</text>
+    </view>
+
+    <view class="activity-feed">
+      <view
+        wx:for="{{records}}"
+        wx:key="id"
+        class="activity-card motion-press"
+        data-id="{{item.id}}"
+        bindtap="openDetail"
+        role="button"
+        aria-label="查看活动 {{item.title}}"
+      >
+        <view class="activity-top">
+          <text class="scene">{{item.sceneName}}</text>
+          <view class="activity-side">
+            <text class="status {{item.badgeTone === 'full' ? 'status--warn' : 'status--success'}}">{{item.badge}}</text>
+            <text class="activity-arrow" aria-hidden="true">›</text>
+          </view>
+        </view>
+        <text class="activity-title">{{item.title}}</text>
+        <view class="activity-meta">
+          <text>{{item.startAtText}}</text>
+          <text>{{item.modeText}}</text>
+          <text class="seat-text">{{item.seatText}}</text>
+        </view>
+      </view>
+    </view>
+    <text class="list-footer">{{loadingMore ? '加载中' : hasMore ? '上拉加载更多' : '没有更多活动'}}</text>
+  </view>
+</view>

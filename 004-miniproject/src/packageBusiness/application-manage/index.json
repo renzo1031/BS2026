@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "活动业务管理",
+  "enablePullDownRefresh": true,
+  "usingComponents": { "page-state": "/components/page-state/index" }
+}

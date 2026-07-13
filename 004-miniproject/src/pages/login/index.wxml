@@ -1,0 +1,26 @@
+<view class="page login-page">
+  <custom-nav title="登录" />
+
+  <view class="login-main motion-enter">
+    <view class="brand-mark" aria-hidden="true">搭</view>
+    <text class="login-title">在校园，找到合拍的搭子</text>
+    <text class="login-subtitle">本校同学自由发布活动，审核通过后公开。</text>
+    <view class="trust-note">
+      <view class="trust-line" aria-hidden="true"></view>
+      <text>仅面向完成校园身份认证的学生</text>
+    </view>
+  </view>
+
+  <view class="login-panel motion-enter motion-delay-1">
+    <view class="privacy-row">
+      <checkbox-group bindchange="onAgreementChange">
+        <label class="privacy-label">
+          <checkbox value="agree" color="#147d64" checked="{{agreed}}" />
+          <text>我已阅读并同意《用户服务与隐私说明》，知悉平台会处理微信标识和校园认证材料。</text>
+        </label>
+      </checkbox-group>
+    </view>
+    <button class="primary-button motion-press" loading="{{loading}}" disabled="{{loading}}" bindtap="login">微信快捷登录</button>
+    <text class="login-tip">首次登录后需绑定学号或学校认可的唯一身份信息。证明材料仅供授权审核员核验。</text>
+  </view>
+</view>

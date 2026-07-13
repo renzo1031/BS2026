@@ -1,0 +1,56 @@
+<view class="page bind-page">
+  <view class="page-header motion-enter">
+    <text class="page-title">认证校园身份</text>
+    <text class="page-subtitle">提交学校认可的身份信息，审核通过后即可参与校内活动。</text>
+  </view>
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载校园信息" message="请检查网络后重试" bind:action="load" />
+
+  <block wx:else>
+    <view wx:if="{{binding}}" class="surface binding-state motion-enter motion-delay-1">
+      <view class="binding-head">
+        <view>
+          <text class="binding-title">身份审核</text>
+          <text class="binding-subtitle">{{binding.status === 'REJECTED' ? '请根据审核说明重新提交' : '材料已提交，请等待审核结果'}}</text>
+        </view>
+        <text class="status {{binding.status === 'REJECTED' ? 'status--danger' : 'status--warn'}}">{{binding.status === 'REJECTED' ? '未通过' : '审核中'}}</text>
+      </view>
+      <view class="credential-line">
+        <text class="credential-label">校园身份</text>
+        <text class="binding-id">{{binding.identifierMasked}}</text>
+      </view>
+      <text wx:if="{{binding.reviewReason}}" class="reason">审核说明：{{binding.reviewReason}}</text>
+      <text class="state-note">审核通过后需要重新登录，以刷新校园权限。</text>
+      <button class="primary-button relogin motion-press" bindtap="relogin">重新登录查看结果</button>
+    </view>
+
+    <view wx:else class="bind-content">
+      <view class="surface credential-form motion-enter motion-delay-1">
+        <view class="sheet-head">
+          <text class="sheet-title">校园身份凭证</text>
+          <text class="sheet-copy">信息仅用于校园身份核验</text>
+        </view>
+        <view class="field field-divided">
+        <text class="field-label required">学校</text>
+        <picker range="{{campusNames}}" value="{{campusIndex}}" bindchange="onCampusChange">
+          <view class="picker-field">{{campusNames[campusIndex] || '请选择学校'}}</view>
+        </picker>
+        </view>
+        <view class="field field-divided">
+          <text class="field-label required">{{campuses[campusIndex].identityLabel || '校园唯一身份信息'}}</text>
+          <input class="input" maxlength="64" placeholder="请输入学校认可的唯一身份编号" aria-label="校园唯一身份信息" bindinput="onIdentifierInput" />
+        </view>
+        <view class="field proof-field">
+          <view class="proof-heading">
+            <text class="field-label required">认证证明</text>
+            <text class="proof-state">{{proofPath ? '已选择' : '待上传'}}</text>
+          </view>
+          <button class="secondary-button proof-trigger motion-press" bindtap="chooseProof">{{proofPath ? '更换证明图片' : '拍照或从相册选择'}}</button>
+          <image wx:if="{{proofPath}}" class="proof-preview" mode="aspectFit" src="{{proofPath}}" />
+          <text class="proof-note">请遮挡与身份核验无关的信息，支持 JPEG 和 PNG。</text>
+        </view>
+      </view>
+      <button class="primary-button submit-button motion-enter motion-delay-2 motion-press" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit">提交认证</button>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,67 @@
+<view class="page editor-page">
+  <view class="editor-head motion-enter">
+    <text class="editor-eyebrow">发布活动</text>
+    <text class="editor-title">{{id ? '把活动再打磨一下' : '发起一场校园搭子局'}}</text>
+    <text class="editor-subtitle">把时间、地点和参与规则说清楚，审核通过后同校同学就能看到。</text>
+  </view>
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载活动草稿" message="请检查网络后重试" bind:action="load" />
+  <block wx:else>
+    <view wx:if="{{!id}}" class="surface template-card motion-enter motion-delay-1">
+      <view class="card-heading"><view><text class="section-kicker">快速开始</text><text class="section-title">先选一个灵感</text></view><text class="card-note">可随时修改</text></view>
+      <text class="section-copy">选好方向后，再补充你自己的时间和规则。</text>
+      <view class="template-list">
+        <button wx:for="{{templates}}" wx:key="sceneName" wx:for-item="tpl" class="template-chip motion-press" data-index="{{index}}" bindtap="applyTemplate">{{tpl.sceneName}}</button>
+      </view>
+    </view>
+
+    <view class="surface checklist-card motion-enter motion-delay-1">
+      <view class="card-heading"><view><text class="section-kicker">发布前检查</text><text class="section-title">让报名更安心</text></view><text class="check-mark">✓</text></view>
+      <view class="check-row"><text class="check-dot"></text><text>标题和介绍写清楚时间、地点、费用与注意事项</text></view>
+      <view class="check-row"><text class="check-dot"></text><text>线下活动只填写公开地点，详细地点留给通过成员</text></view>
+      <view class="check-row"><text class="check-dot"></text><text>活动图片会先审核，通过后才会展示给同校同学</text></view>
+    </view>
+
+    <view class="form-journey">
+      <view class="surface form-section motion-enter motion-delay-2">
+        <text class="section-kicker">活动内容</text>
+        <text class="section-title">这是一场什么搭子局</text>
+        <text class="section-copy">用学生能一眼看懂的话写，不用像通知公告。</text>
+        <view class="field"><text class="field-label required">自定义场景</text><input class="input" maxlength="20" value="{{sceneName}}" placeholder="例如：晨跑、六级口语、音乐节拼车" data-field="sceneName" bindinput="onInput" /></view>
+        <view class="field"><text class="field-label required">活动标题</text><input class="input" maxlength="50" value="{{title}}" placeholder="5-50 字，说明要做什么" data-field="title" bindinput="onInput" /></view>
+        <view class="field last-field"><text class="field-label required">详细介绍</text><textarea class="textarea" maxlength="1000" value="{{description}}" placeholder="至少 20 字：安排、费用、注意事项等" data-field="description" bindinput="onInput" /><text class="caption counter">{{description.length}} / 1000</text></view>
+      </view>
+
+      <view class="surface form-section motion-enter motion-delay-2">
+        <text class="section-kicker">地点与参与</text>
+        <text class="section-title">约在哪里，怎么参与</text>
+        <view class="field"><text class="field-label required">活动形式</text><picker range="{{modeLabels}}" value="{{modeIndex}}" bindchange="onModeChange"><view class="picker-field">{{modeLabels[modeIndex]}}</view></picker></view>
+        <view wx:if="{{modeValues[modeIndex] !== 'ONLINE'}}" class="field"><text class="field-label required">公开地点</text><input class="input" maxlength="120" value="{{publicLocation}}" placeholder="广场可见，请勿填写宿舍门牌等隐私" data-field="publicLocation" bindinput="onInput" /></view>
+        <view class="field"><text class="field-label">成员可见的详细地点</text><input class="input" maxlength="255" value="{{memberLocationDetail}}" placeholder="仅报名通过的成员可见" data-field="memberLocationDetail" bindinput="onInput" /></view>
+        <view class="field last-field"><text class="field-label">参与要求</text><textarea class="textarea short" maxlength="500" value="{{joinRequirement}}" placeholder="可选，避免年龄、性别等歧视性限制" data-field="joinRequirement" bindinput="onInput" /></view>
+      </view>
+
+      <view class="surface form-section motion-enter motion-delay-3">
+        <text class="section-kicker">时间安排</text>
+        <text class="section-title">把时间线排清楚</text>
+        <view class="field"><text class="field-label required">报名截止</text><view class="picker-row"><picker mode="date" value="{{deadlineDate}}" data-field="deadlineDate" bindchange="onDateChange"><view class="picker-field">{{deadlineDate}}</view></picker><picker mode="time" value="{{deadlineTime}}" data-field="deadlineTime" bindchange="onDateChange"><view class="picker-field">{{deadlineTime}}</view></picker></view></view>
+        <view class="field"><text class="field-label required">开始时间</text><view class="picker-row"><picker mode="date" value="{{startDate}}" data-field="startDate" bindchange="onDateChange"><view class="picker-field">{{startDate}}</view></picker><picker mode="time" value="{{startTime}}" data-field="startTime" bindchange="onDateChange"><view class="picker-field">{{startTime}}</view></picker></view></view>
+        <view class="field last-field"><text class="field-label required">结束时间</text><view class="picker-row"><picker mode="date" value="{{endDate}}" data-field="endDate" bindchange="onDateChange"><view class="picker-field">{{endDate}}</view></picker><picker mode="time" value="{{endTime}}" data-field="endTime" bindchange="onDateChange"><view class="picker-field">{{endTime}}</view></picker></view></view>
+      </view>
+
+      <view class="surface form-section motion-enter motion-delay-3">
+        <text class="section-kicker">发布设置</text>
+        <text class="section-title">名额、标签和报名问题</text>
+        <view class="field"><text class="field-label required">人数上限</text><input class="input" type="number" value="{{capacity}}" data-field="capacity" bindinput="onInput" /></view>
+        <view class="field"><text class="field-label">标签（最多 5 个）</text><input class="input" maxlength="64" value="{{tagsText}}" placeholder="用逗号分隔，例如：新手友好，周末" data-field="tagsText" bindinput="onInput" /></view>
+        <view class="field"><text class="field-label">报名问题（最多 3 个）</text><textarea class="textarea short" maxlength="320" value="{{questionsText}}" placeholder="每行一个问题" data-field="questionsText" bindinput="onInput" /></view>
+        <view class="field last-field"><text class="field-label">活动图片（最多 6 张）</text><button class="secondary-button upload-button motion-press" bindtap="chooseImages">选择图片</button><text class="caption image-tip">已绑定 {{mediaIds.length}} 张，待审核 {{pendingMediaIds.length}} 张，本次选择 {{selectedPaths.length}} 张。</text></view>
+      </view>
+    </view>
+
+    <view class="editor-actions motion-enter motion-delay-4">
+      <button class="secondary-button motion-press" loading="{{saving}}" disabled="{{saving}}" bindtap="saveDraft">保存草稿</button>
+      <button class="primary-button motion-press" loading="{{saving}}" disabled="{{saving}}" bindtap="submitReview">提交审核</button>
+    </view>
+  </block>
+</view>

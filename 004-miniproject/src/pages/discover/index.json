@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "page-state": "/components/page-state/index",
+    "custom-nav": "/components/custom-nav/index"
+  }
+}

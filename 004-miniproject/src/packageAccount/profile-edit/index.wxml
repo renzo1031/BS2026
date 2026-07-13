@@ -1,0 +1,69 @@
+<view class="page profile-edit-page">
+  <view class="page-header motion-enter">
+    <text class="page-title">编辑个人资料</text>
+    <text class="page-subtitle">只展示你愿意让同校同学看到的信息</text>
+  </view>
+
+  <page-state wx:if="{{state !== 'ready'}}" state="{{state}}" title="加载个人资料" message="请下拉或点击重试" bind:action="load" />
+
+  <view wx:else class="stack">
+    <view class="surface profile-card motion-enter motion-delay-1">
+      <view class="profile-preview">
+        <view class="avatar-picker motion-press" bindtap="chooseAvatar" role="button" aria-label="选择头像" aria-disabled="{{!canUploadAvatar || pendingAvatarFileId || avatarUploading || avatarRefreshing || saving}}">
+          <image wx:if="{{avatarPreviewUrl}}" class="avatar-image" src="{{avatarPreviewUrl}}" mode="aspectFill" binderror="onAvatarImageError" />
+          <view wx:else class="avatar-preview">{{nickname ? nickname[0] : '同'}}</view>
+          <view wx:if="{{canUploadAvatar && !pendingAvatarFileId && !avatarUploading && !avatarRefreshing && !saving}}" class="avatar-edit-badge"><image src="/assets/icons/action-edit.png" mode="aspectFit" /></view>
+          <view wx:if="{{avatarUploading}}" class="avatar-loading">上传中</view>
+        </view>
+        <view class="grow">
+          <view class="row-between">
+            <text class="preview-name">{{nickname || '待填写昵称'}}</text>
+            <text class="status status--success">{{tagsCount}} 个标签</text>
+          </view>
+          <text class="caption preview-note">{{avatarHint}}</text>
+          <button wx:if="{{avatarStatus === 'pending'}}" class="text-button avatar-refresh" loading="{{avatarRefreshing}}" disabled="{{avatarRefreshing || avatarUploading || saving}}" bindtap="refreshAvatar">刷新状态</button>
+        </view>
+      </view>
+      <view wx:if="{{tagsPreview.length}}" class="chip-list preview-tags">
+        <text wx:for="{{tagsPreview}}" wx:key="*this" wx:for-item="tag" class="chip">{{tag}}</text>
+      </view>
+      <text wx:else class="caption preview-empty">补充兴趣标签，更容易找到合拍的搭子。</text>
+    </view>
+
+    <view class="form-journey">
+      <view class="surface form-section motion-enter motion-delay-2">
+        <text class="section-title">别人怎么称呼你</text>
+        <view class="field">
+          <text class="field-label required">昵称</text>
+          <input class="input" maxlength="40" value="{{nickname}}" data-field="nickname" bindinput="onInput" placeholder="1 到 40 字" />
+        </view>
+        <view class="field last-field">
+          <text class="field-label">个人简介</text>
+          <textarea class="textarea" maxlength="300" value="{{bio}}" data-field="bio" bindinput="onInput" placeholder="介绍你的活动偏好与相处方式" />
+          <text class="caption counter">{{bio.length}} / 300</text>
+        </view>
+      </view>
+
+      <view class="surface form-section motion-enter motion-delay-3">
+        <text class="section-title">校园信息和兴趣偏好</text>
+        <view class="field two-columns">
+          <view>
+            <text class="field-label">年级</text>
+            <input class="input" maxlength="32" value="{{gradeName}}" data-field="gradeName" bindinput="onInput" placeholder="例如：大三" />
+          </view>
+          <view>
+            <text class="field-label">专业</text>
+            <input class="input" maxlength="80" value="{{majorName}}" data-field="majorName" bindinput="onInput" placeholder="例如：软件工程" />
+          </view>
+        </view>
+        <view class="field last-field">
+          <text class="field-label">兴趣标签</text>
+          <textarea class="textarea tags-input" maxlength="450" value="{{interestTagsText}}" data-field="interestTagsText" bindinput="onInput" placeholder="使用逗号或换行分隔，例如：羽毛球，摄影，自习" />
+          <text class="caption">标签只用于匹配兴趣，不会公开校园身份原文。</text>
+        </view>
+      </view>
+    </view>
+
+    <button class="primary-button motion-press" loading="{{saving}}" disabled="{{saving || avatarUploading || avatarRefreshing}}" bindtap="save">保存资料</button>
+  </view>
+</view>
