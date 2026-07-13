@@ -49,7 +49,7 @@
 | 001 | 校园失物招领中心 | 校园服务 / 后台管理 | Spring Boot + Vue 3 + MySQL | ✅ 已完成 | [后端](./001-backend/) · [前端](./001-frontend/) · [SQL](./sql/001/init.sql) · [文档](./docs/001/) · [截图](./docs/001/screenshots/) |
 | 002 | 大学生一体化服务平台 | 校园事务 / 多角色办理 | Spring Boot + Vue 3 + MySQL | ✅ 已完成 | [后端](./002-backend/) · [前端](./002-frontend/) · [SQL](./sql/002/init.sql) · [PRD](./docs/002/PRD-campus-integrated-service-platform.md) · [截图](./docs/002/screenshots/) |
 | 003 | 留守儿童帮扶平台 | 公益服务 / 多角色协作 | Spring Boot + Vue 3 + MySQL | ✅ 已完成 | [后端](./003-backend/) · [前端](./003-frontend/) · [SQL](./sql/003/init.sql) · [说明](./docs/003/README.md) · [规格](./docs/003/project-spec.md) |
-| 004 | 校园搭子平台 | 校园社交 / 活动治理 | Spring Boot + 原生微信小程序 + Vue 3 + MySQL + Redis + MinIO | 🔄 开发中 | [后端](./004-backend/) · [小程序](./004-miniproject/) · [管理端](./004-admin/) · [SQL](./sql/004/) · [说明](./docs/004/README.md) |
+| 004 | 校园搭子平台 | 校园社交 / 活动治理 | Spring Boot + 原生微信小程序 + Vue 3 + MySQL + Redis + MinIO | ✅ 已完成 | [后端](./004-backend/) · [小程序](./004-miniproject/) · [管理端](./004-admin/) · [SQL](./sql/004/) · [说明](./docs/004/README.md) |
 
 ## ⚡ 快速开始
 

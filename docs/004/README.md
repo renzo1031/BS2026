@@ -2,7 +2,7 @@
 
 基于原生微信小程序、Vue 3 管理后台和 Spring Boot 的校园搭子平台。
 
-当前状态：开发中。已确认范围见 [project-spec.md](project-spec.md)，阶段与验证证据见 [development-plan.md](development-plan.md)。
+当前状态：已完成。已确认范围见 [project-spec.md](project-spec.md)，阶段与验证证据见 [development-plan.md](development-plan.md)。
 
 ## 目录
 
